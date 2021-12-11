@@ -8,7 +8,9 @@ import * as helmet from 'helmet';
 import { HttpError } from '@/config/error';
 import { sendHttpErrorModule } from '@/config/error/sendHttpError';
 import Logger from '@/utils/Logger';
-import { countAllRequests } from '../../monitoring';
+import { traceRequests } from './traceMiddleware';
+
+//import { countAllRequests } from '../../monitoring';
 
 /**
  * @export
@@ -35,7 +37,8 @@ export function configure(app: express.Application): void {
     }));
 
     // Monitoring
-    app.use(countAllRequests());
+    //app.use(countAllRequests());
+    app.use(traceRequests);
 
     // custom errors
     app.use(sendHttpErrorModule);

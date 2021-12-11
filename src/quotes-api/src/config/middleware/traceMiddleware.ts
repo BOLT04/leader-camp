@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import api from '@opentelemetry/api';
 
-const tracer = require('./tracer')('quotes-api-traceMiddleware');
+import trace from '../../tracer';
+const tracer = trace('quotes-api-traceMiddleware')
 
 interface RequestWithUser extends Request {
   user: object | string;
