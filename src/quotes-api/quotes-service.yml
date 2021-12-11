@@ -6,7 +6,7 @@ info:
     This spec defines the Quotes service API. This service is responsible for exposing operations around quotes from
     leaders, and managing that data. An example operation is getting a random quote to be used in the Leader camp 
     homepage, or getting a quote from a specific leader.
-  
+
   contact:
     email: davidpereira2938@gmail.com
   version: 0.0.1
