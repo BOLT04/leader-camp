@@ -8,6 +8,7 @@ import * as helmet from 'helmet';
 import { HttpError } from '@/config/error';
 import { sendHttpErrorModule } from '@/config/error/sendHttpError';
 import Logger from '@/utils/Logger';
+import { countAllRequests } from '../../monitoring';
 
 /**
  * @export
@@ -32,6 +33,9 @@ export function configure(app: express.Application): void {
         exposedHeaders: ['Authorization'],
         optionsSuccessStatus: HttpStatus.OK,
     }));
+
+    // Monitoring
+    app.use(countAllRequests());
 
     // custom errors
     app.use(sendHttpErrorModule);

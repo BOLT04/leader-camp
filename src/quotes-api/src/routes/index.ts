@@ -1,23 +1,10 @@
 import * as express from 'express';
 import * as http from 'http';
-import * as swaggerUi from 'swagger-ui-express';
 import UserRouter from './QuotesRouter';
 
 type NextFunction = express.NextFunction;
 type Request = express.Request;
 type Response = express.Response;
-
-let swaggerDoc: Object;
-
-try {
-    swaggerDoc = require('../../quotes-service.yml');
-} catch (error) {
-    console.log('***************************************************');
-    console.log('  Seems like you doesn\'t have swagger.json file');
-    console.log('  Please, run: ');
-    console.log('  $ swagger-jsdoc -d swaggerDef.js -o swagger.json');
-    console.log('***************************************************');
-}
 
 /**
  * @export
@@ -33,17 +20,6 @@ export function init(app: express.Application): void {
      * @constructs
      */
     app.use('/v1/quotes', UserRouter);
-
-    /**
-     * @description
-     *  If swagger.json file exists in root folder, shows swagger api description
-     *  else send commands, how to get swagger.json file
-     * @constructs
-     */
-    if (swaggerDoc) {
-        app.use('/docs', swaggerUi.serve);
-        app.get('/docs', swaggerUi.setup(swaggerDoc));
-    }
 
     /**
      * @description No results returned mean the object is not found
