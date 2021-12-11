@@ -1,0 +1,124 @@
+---
+openapi: 3.0.2
+info:
+  title: Leader Camp - Quotes Service - OpenAPI 3.0
+  description: |-
+    This spec defines the Quotes service API. This service is responsible for exposing operations around quotes from
+    leaders, and managing that data. An example operation is getting a random quote to be used in the Leader camp 
+    homepage, or getting a quote from a specific leader.
+  
+  contact:
+    email: davidpereira2938@gmail.com
+  version: 0.0.1
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: "/api/v1"
+
+paths:
+  "/quotes/random":
+    get:
+      summary: Return a random Quote
+      description: Return a random Quote from all registered leaders in the system.
+      operationId: getRandomQuote
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/xml:
+              schema:
+                "$ref": "#/components/schemas/Quote"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Quote"
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+
+  "/quotes/{quoteId}":
+    get:
+      summary: Find Quote by ID
+      description: Return all relevant information about the quote, like it's author or origin (e.g. Twitter, book)
+      operationId: findQuoteById
+      parameters:
+        - name: quoteId
+          in: path
+          description: ID of the quote to return
+          required: true
+          explode: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Quote"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Quote"
+        '400':
+          description: Invalid status value
+
+  "/quotes":
+    get:
+      summary: Gets a list of Quotes for the given user
+      description: Gets a list of Quotes for the given user
+      operationId: findQuotesForUser
+      parameters:
+        - name: userId
+          in: query
+          description: ID of the user to get quotes from. This user should be a "Leader"
+          required: true
+          explode: true
+          schema:
+            type: string
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Quote"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Quote"
+        '400':
+          description: Invalid userId value
+
+components:
+  schemas:
+    Quote:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: c87658b5-e8ea-446b-978c-a40054590b2f
+        authorId:
+          type: string
+          format: uuid
+          example: c87658b5-e8ea-446b-978c-a40054590b2b
+        content:
+          type: string
+          example: People don't buy what you do; they buy why you do it
+        origin:
+          type: string
+          example: https://twitter.com/simonsinek/status/1459168870795776001
