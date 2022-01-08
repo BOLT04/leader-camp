@@ -6,17 +6,18 @@ Project initially for [Cloud Native Hackathon](https://www.commclassroom.org/clo
 _Note: This project is overengineered 😅 Most features are out-of-scope for the hackathon, I'm building a simple MVP with all the technology I want to learn and that is aligned with the sponsors that have KNCA vouchers in their prize 😄_
 
 ## Tech Stack (ideas)
-- [Tye](https://github.com/dotnet/tye)
-- Kubernetes (K8S) & AKS (Azure Kubernetes Service)
+- [Tye](https://github.com/dotnet/tye) & dapr??
+- Docker & Kubernetes (K8S) & AKS (Azure Kubernetes Service)
 - [Argo](https://argoproj.github.io/), [ArgoCD](https://argoproj.github.io/cd/) or GitHub actions
-- envoy or istio
+- **istio** (the proxy used is an extended version of **envoy**) -> **resilience** with service mesh: circuit breaker, rate limiting, timeout, bulkhead, observability
 - ELK stack: Kibana, Logstash and Elastic search -> **observability**
 - OpenTelemetry
-- MongoDB
-- Redis 
+- MongoDB (Database)
+- Redis (Cache)
+- Kong (API gateway)?
 - xyz for the domain
-- Load balancer: nginx or haproxy, Envoy??
-- Resilience with service mesh. Circuit breaker, rate limiting, timeout, bulkhead, observability
+- Load balancer: nginx or haproxy
+- RabbitMQ/Azure Event Hubs & cloudevents (Message Broker with standard event schema)
 - **datree** as a CLI to test the kubernetes spec
 
 SPONSORS: **Teleport , Kubeshop, getstream.io, Civo, .xyz, Open Source Best Practices, GitHub**
